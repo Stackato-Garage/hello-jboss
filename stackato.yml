@@ -1,7 +1,8 @@
 name: hello
 mem: 512M
-buildpack: https://github.com/bcferrycoder/simple-buildpack
+buildpack: https://github.com/Stackato-Garage/simple-jboss-buildpack
 hooks:
   post-staging:
-    - ruby -p -i -e "s/8080/$PORT/" ~stackato/jboss/standalone/configuration/standalone.xml
-    - cp hello-java-1.0.war ~stackato/jboss/standalone/deployments/
+  - mv hello-java-1.0.warwar $HOME/jboss/standalone/deployments/hello-java-1.0.war
+  pre-running:
+  - perl -p -i -e "s/8080/$PORT/" $HOME/jboss/standalone/configuration/standalone.xml
